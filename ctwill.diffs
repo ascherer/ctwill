@@ -1,76 +1,84 @@
-*** ../../cweb3.43/cweave.w	Sun Sep  6 20:58:25 1998
---- ctwill.w	Tue Aug 31 18:48:03 1999
+*** ../cweb3.61/cweave.w	Mon Jul 24 00:16:43 2000
+--- ctwill.w	Mon Jul 24 08:20:43 2000
 ***************
-*** 1,20 ****
+*** 1,10 ****
 ! % This file is part of CWEB.
 ! % This program by Silvio Levy and Donald E. Knuth
 ! % is based on a program by Knuth.
 ! % It is distributed WITHOUT ANY WARRANTY, express or implied.
-! % Version 3.43 --- September 1998
-! % (is same as Version 3.4 except that the latter used an older COMMON)
-! 
-! % Copyright (C) 1987,1990,1993 Silvio Levy and Donald E. Knuth
-! 
-! % Permission is granted to make and distribute verbatim copies of this
-! % document provided that the copyright notice and this permission notice
-! % are preserved on all copies.
-! 
-! % Permission is granted to copy and distribute modified versions of this
-! % document under the conditions for verbatim copying, provided that the
-! % entire resulting derived work is given a different name and distributed
-! % under the terms of a permission notice identical to this one.
+  % Version 3.61 --- July 2000
+- % (essentially the same as version 3.6, which added
+- %  recently introduced features of standard C++ to version 3.4)
   
-  % Here is TeX material that gets inserted after \input cwebmac
-  \def\hang{\hangindent 3em\indent\ignorespaces}
+  % Copyright (C) 1987,1990,1993,2000 Silvio Levy and Donald E. Knuth
+  
 --- 1,6 ----
 ! % This program by Don Knuth is based on CWEAVE by Levy and Knuth.
 ! % It's somewhat flaky, so you probably shouldn't try to use it.
-! % Version 3.43 --- September 1999
+  % Version 3.61 --- July 2000
   
-  % Here is TeX material that gets inserted after \input cwebmac
-  \def\hang{\hangindent 3em\indent\ignorespaces}
+  % Copyright (C) 1987,1990,1993,2000 Silvio Levy and Donald E. Knuth
+  
 ***************
-*** 28,36 ****
+*** 17,23 ****
+  % entire resulting derived work is given a different name and distributed
+  % under the terms of a permission notice identical to this one.
+  
+! % Here is TeX material that gets inserted after \input cwebmac
+  \def\hang{\hangindent 3em\indent\ignorespaces}
+  \def\pb{$\.|\ldots\.|$} % C brackets (|...|)
+  \def\v{\char'174} % vertical (|) in typewriter font
+--- 13,19 ----
+  % entire resulting derived work is given a different name and distributed
+  % under the terms of a permission notice identical to this one.
+  
+! % Here is TeX material that gets inserted after \input ctwimac
+  \def\hang{\hangindent 3em\indent\ignorespaces}
+  \def\pb{$\.|\ldots\.|$} % C brackets (|...|)
+  \def\v{\char'174} % vertical (|) in typewriter font
+***************
+*** 29,37 ****
   \def\skipxTeX{\\{skip\_\TEX/}}
   \def\copyxTeX{\\{copy\_\TEX/}}
   
-! \def\title{CWEAVE (Version 3.43)}
+! \def\title{CWEAVE (Version 3.61)}
   \def\topofcontents{\null\vfill
 !   \centerline{\titlefont The {\ttitlefont CWEAVE} processor}
     \vskip 15pt
-    \centerline{(Version 3.43)}
+    \centerline{(Version 3.61)}
     \vfill}
---- 14,22 ----
+--- 25,33 ----
   \def\skipxTeX{\\{skip\_\TEX/}}
   \def\copyxTeX{\\{copy\_\TEX/}}
   
-! \def\title{CTWILL (Version 3.43)}
+! \def\title{CTWILL (Version 3.61)}
   \def\topofcontents{\null\vfill
 !   \centerline{\titlefont The {\ttitlefont CTWILL} processor}
     \vskip 15pt
-    \centerline{(Version 3.43)}
+    \centerline{(Version 3.61)}
     \vfill}
 ***************
-*** 52,68 ****
-  \let\maybe=\iftrue
+*** 54,71 ****
+  @s not_eq normal @q unreserve a C++ keyword @>
   
   @** Introduction.
 ! This is the \.{CWEAVE} program by Silvio Levy and Donald E. Knuth,
 ! based on \.{WEAVE} by Knuth.
 ! We are thankful to Steve Avery,
-! Nelson Beebe, Hans-Hermann Bode (to whom the \CPLUSPLUS/ adaptation is due),
-! Klaus Guntermann, Norman Ramsey, Tomas Rokicki, Joachim Schnitter,
-! Joachim Schrod, Lee Wittenberg, and others who have contributed improvements.
+! Nelson Beebe, Hans-Hermann Bode (to whom the original \CPLUSPLUS/ adaptation
+! is due), Klaus Guntermann, Norman Ramsey, Tomas Rokicki, Joachim Schnitter,
+! Joachim Schrod, Lee Wittenberg, Saroj Mahapatra, Cesar Augusto Rorato
+! Crusius, and others who have contributed improvements.
   
 ! The ``banner line'' defined here should be changed whenever \.{CWEAVE}
 ! is modified.
   
-! @d banner "This is CWEAVE (Version 3.43)\n"
+! @d banner "This is CWEAVE (Version 3.61)\n"
   
   @c @<Include files@>@/
   @h
---- 38,61 ----
-  \let\maybe=\iftrue
+--- 50,73 ----
+  @s not_eq normal @q unreserve a C++ keyword @>
   
   @** Introduction.
 ! This is the \.{CTWILL} program by D. E. Knuth, based
@@ -90,13 +98,13 @@
 ! The ``banner line'' defined here should be changed whenever \.{CTWILL} is
 ! modified. The version number parallels the corresponding version of \.{CWEAVE}.
   
-! @d banner "This is CTWILL (Version 3.43)\n"
+! @d banner "This is CTWILL (Version 3.61)\n"
   
   @c @<Include files@>@/
   @h
 ***************
-*** 83,88 ****
---- 76,232 ----
+*** 86,91 ****
+--- 88,253 ----
   extern int strncmp(); /* compare up to $n$ string characters */
   extern char* strncpy(); /* copy up to $n$ string characters */
   
@@ -197,13 +205,12 @@
 + mini-index of the section. If several temporary meanings are assigned
 + to the same identifier in a section, all will appear in the mini-index.
 + Each \.{@@\%} toggles the temporary/permanent convention; thus, after
-+ an even number of \.{@@%} operations in a section, meanings specified
++ an even number of \.{@@\%} operations in a section, meanings specified
 + by \.{@@\$} are permanent.
 + 
 + The operation \.{@@-} followed by an identifier followed by \.{@@>}
 + specifies that the identifier should not generate a mini-index entry
-+ in the current section (unless a temporary meaning is assigned, in
-+ which case the \.{@@-} is redundant).
++ in the current section (unless, of course, a temporary meaning is assigned).
 + 
 + If \.{@@-foo@@>} appears in a section where a new permanent meaning is
 + later defined by the semantics of~\Cee, the current meaning of \\{foo}
@@ -226,8 +233,18 @@
 + \TeX\ part is `\.{\\zip}', the mini-index entry will contain neither
 + colon nor equals, just a comma. The program name and section number
 + can also be replaced by a string. For example,
-+ $$\.{@@\$printf \"<stdio.h>\" \\zip@@>}$$
++ $$\.{@@\$printf "<stdio.h>" \\zip@@>}$$
 + will generate a mini-index entry like `\\{printf}, \.{<stdio.h>}.'.
++ 
++ A special ``proofmode'' is provided so that you can check \.{CTWILL}'s
++ conclusions about cross-references. Run \.{CTWILL} with the
++ flag \.{+P}, and \TeX\ will produce a specially formatted document
++ ({\it without\/} mini-indexes)
++ in which you can check that your specifications are correct.
++ You should always do this before generating mini-indexes, because
++ mini-indexes can mask errors if page breaks are favorable but the
++ errors might reveal themselves later after your program has changed.
++ The proofmode output is much easier to check than the mini-indexes themselves.
 + 
 + The control code \.{@@r} or \.{@@R} causes \.{CTWILL} to emit
 + the \TeX\ macro `\.{\\shortpage}' just before starting the next
@@ -246,7 +263,7 @@
 + since you use them only in change files set up for book publishing,
 + which are quite different from the change files you set up for tangling.
 + 
-+ (End of user manual. Resume the program for \.{CWEAVE}, with occasional
++ (End of user manual. We now resume the program for \.{CWEAVE}, with occasional
 + outbursts of new code.)
 + 
 + @d max_tex_chars 50 /* limit on the \TeX\ part of a meaning */    
@@ -255,7 +272,7 @@
   three phases: First it inputs the source file and stores cross-reference
   data, then it inputs the source once again and produces the \TEX/ output
 ***************
-*** 193,202 ****
+*** 202,211 ****
   @ We keep track of the current section number in |section_count|, which
   is the total number of sections that have started.  Sections which have
   been altered by a change file entry have their |changed_section| flag
@@ -266,7 +283,7 @@
   
   @ The other large memory area in \.{CWEAVE} keeps the cross-reference data.
   All uses of the name |p| are recorded in a linked list beginning at
---- 337,343 ----
+--- 364,370 ----
   @ We keep track of the current section number in |section_count|, which
   is the total number of sections that have started.  Sections which have
   been altered by a change file entry have their |changed_section| flag
@@ -275,8 +292,8 @@
   @ The other large memory area in \.{CWEAVE} keeps the cross-reference data.
   All uses of the name |p| are recorded in a linked list beginning at
 ***************
-*** 233,238 ****
---- 374,489 ----
+*** 242,247 ****
+--- 401,517 ----
   xref_pointer xref_ptr; /* the largest occupied position in |xmem| */
   sixteen_bits xref_switch,section_xref_switch; /* either zero or |def_flag| */
   
@@ -372,6 +389,7 @@
 +     if (*(ministring_ptr-1)==' ') ministring_ptr--;
 +     if (ministring_ptr>=&ministring_buf[max_tex_chars])
 +       strcpy(ministring_buf,"\\zip"); /* ignore |tex_part| if too long */
++ @.\\zip@>
 +     else *ministring_ptr='\0';
 +     q->perm.prog_no=0; /* |q->perm.id=p| */
 +     q->perm.sec_no=section_count;
@@ -394,8 +412,8 @@
   has a special first cross-reference whose |num| field is |file_flag|.
   
 ***************
-*** 373,379 ****
---- 624,636 ----
+*** 384,390 ****
+--- 654,666 ----
   name_pointer p;
   eight_bits t;
   {
@@ -410,24 +428,24 @@
   
   void
 ***************
-*** 413,419 ****
-  id_lookup("endif",NULL,if_like);
-  id_lookup("enum",NULL,struct_like);
+*** 434,440 ****
   id_lookup("error",NULL,if_like);
+  id_lookup("explicit",NULL,int_like);
+  id_lookup("export",NULL,int_like);
 ! id_lookup("extern",NULL,int_like);
   id_lookup("FILE",NULL,raw_int);
   id_lookup("float",NULL,raw_int);
   id_lookup("for",NULL,for_like);
---- 670,676 ----
-  id_lookup("endif",NULL,if_like);
-  id_lookup("enum",NULL,struct_like);
+--- 710,716 ----
   id_lookup("error",NULL,if_like);
+  id_lookup("explicit",NULL,int_like);
+  id_lookup("export",NULL,int_like);
 ! ext_loc=id_lookup("extern",NULL,int_like)-name_dir;
   id_lookup("FILE",NULL,raw_int);
   id_lookup("float",NULL,raw_int);
   id_lookup("for",NULL,for_like);
 ***************
-*** 425,431 ****
+*** 446,452 ****
   id_lookup("ifndef",NULL,if_like);
   id_lookup("include",NULL,if_like);
   id_lookup("inline",NULL,int_like);
@@ -435,7 +453,7 @@
   id_lookup("jmp_buf",NULL,raw_int);
   id_lookup("ldiv_t",NULL,raw_int);
   id_lookup("line",NULL,if_like);
---- 682,688 ----
+--- 722,728 ----
   id_lookup("ifndef",NULL,if_like);
   id_lookup("include",NULL,if_like);
   id_lookup("inline",NULL,int_like);
@@ -444,10 +462,10 @@
   id_lookup("ldiv_t",NULL,raw_int);
   id_lookup("line",NULL,if_like);
 ***************
-*** 467,472 ****
---- 724,732 ----
-  id_lookup("wchar_t",NULL,raw_int);
-  id_lookup("while",NULL,for_like);
+*** 503,508 ****
+--- 779,787 ----
+  id_lookup("TeX",NULL,custom);
+  id_lookup("make_pair",NULL,func_template);
   
 + @ @<Glob...@>=
 + sixteen_bits int_loc, ext_loc; /* locations of special reserved words */
@@ -456,7 +474,7 @@
   Let us now consider the subroutines that read the \.{CWEB} source file
   and break it into meaningful units. There are four such procedures:
 ***************
-*** 497,520 ****
+*** 533,556 ****
   @d xref_typewriter 0205 /* control code for `\.{@@.}' */
   @d TeX_string 0206 /* control code for `\.{@@t}' */
   @f TeX_string TeX
@@ -481,7 +499,7 @@
   
   @ Control codes are converted to \.{CWEAVE}'s internal
   representation by means of the table |ccode|.
---- 757,784 ----
+--- 812,839 ----
   @d xref_typewriter 0205 /* control code for `\.{@@.}' */
   @d TeX_string 0206 /* control code for `\.{@@t}' */
   @f TeX_string TeX
@@ -511,8 +529,8 @@
   @ Control codes are converted to \.{CWEAVE}'s internal
   representation by means of the table |ccode|.
 ***************
-*** 542,547 ****
---- 806,813 ----
+*** 578,583 ****
+--- 861,868 ----
   ccode['+']=no_line_break; ccode[';']=pseudo_semi;
   ccode['[']=macro_arg_open; ccode[']']=macro_arg_close;
   ccode['\'']=ord;
@@ -522,7 +540,7 @@
   
   @ Users can write
 ***************
-*** 563,573 ****
+*** 599,609 ****
   @<Predec...@>=
   void   skip_limbo();
   
@@ -534,7 +552,7 @@
       *(limit+1)='@@';
       while (*loc!='@@') loc++; /* look for '@@', then skip two chars */
       if (loc++ <=limit) { int c=ccode[(eight_bits)*loc++];
---- 829,846 ----
+--- 884,901 ----
   @<Predec...@>=
   void   skip_limbo();
   
@@ -554,8 +572,8 @@
       while (*loc!='@@') loc++; /* look for '@@', then skip two chars */
       if (loc++ <=limit) { int c=ccode[(eight_bits)*loc++];
 ***************
-*** 623,628 ****
---- 896,902 ----
+*** 659,664 ****
+--- 951,957 ----
   |get_next| to take additional actions:
   
   \yskip\hang |xref_roman|, |xref_wildcard|, |xref_typewriter|, |TeX_string|,
@@ -564,7 +582,7 @@
   the beginning and ending-plus-one locations in the buffer.
   
 ***************
-*** 689,695 ****
+*** 728,734 ****
   for |ord|, since |get_next| changes |ord| into a string.
   
   @d left_preproc ord /* begins a preprocessor command */
@@ -572,7 +590,7 @@
   
   @<Glob...@>=
   boolean preprocessing=0; /* are we scanning a preprocessor command? */
---- 963,969 ----
+--- 1021,1027 ----
   for |ord|, since |get_next| changes |ord| into a string.
   
   @d left_preproc ord /* begins a preprocessor command */
@@ -581,7 +599,7 @@
   @<Glob...@>=
   boolean preprocessing=0; /* are we scanning a preprocessor command? */
 ***************
-*** 856,864 ****
+*** 894,902 ****
       case translit_code: err_print("! Use @@l in limbo only"); continue;
   @.Use @@l in limbo...@>
       case underline: xref_switch=def_flag; continue;
@@ -591,7 +609,7 @@
       case section_name:
         @<Scan the section name and make |cur_section| point to it@>;
       case verbatim: @<Scan a verbatim string@>;
---- 1130,1141 ----
+--- 1187,1198 ----
       case translit_code: err_print("! Use @@l in limbo only"); continue;
   @.Use @@l in limbo...@>
       case underline: xref_switch=def_flag; continue;
@@ -605,7 +623,7 @@
         @<Scan the section name and make |cur_section| point to it@>;
       case verbatim: @<Scan a verbatim string@>;
 ***************
-*** 937,943 ****
+*** 975,981 ****
   @ @c
   void
   skip_restricted()
@@ -613,7 +631,7 @@
     id_first=loc; *(limit+1)='@@';
   false_alarm:
     while (*loc!='@@') loc++;
---- 1214,1220 ----
+--- 1271,1277 ----
   @ @c
   void
   skip_restricted()
@@ -622,8 +640,8 @@
   false_alarm:
     while (*loc!='@@') loc++;
 ***************
-*** 951,959 ****
---- 1228,1288 ----
+*** 989,997 ****
+--- 1285,1346 ----
       if (*loc++!='>')
         err_print("! Control codes are forbidden in control text");
   @.Control codes are forbidden...@>
@@ -676,6 +694,7 @@
 +   m->prog_no=t;
 +   m->sec_no=n;
 +   if (id_loc-loc>=max_tex_chars) strcpy(m->tex_part,"\\zip");
++ @.\\zip@>
 +   else { char *q=m->tex_part;
 +     while (loc<id_loc) *q++=*loc++;
 +     *q='\0';
@@ -686,7 +705,7 @@
   have |*(loc-1)==verbatim|; we set |id_first| to the beginning
   of the string itself, and |id_loc| to its ending-plus-one location in the
 ***************
-*** 991,1001 ****
+*** 1029,1039 ****
   void
   phase_one() {
     phase=1; reset_input(); section_count=0;
@@ -698,7 +717,7 @@
     phase=2; /* prepare for second phase */
     @<Print error messages about unused or undefined section names@>;
   }
---- 1320,1329 ----
+--- 1378,1387 ----
   void
   phase_one() {
     phase=1; reset_input(); section_count=0;
@@ -710,7 +729,7 @@
     @<Print error messages about unused or undefined section names@>;
   }
 ***************
-*** 1003,1010 ****
+*** 1041,1048 ****
   @ @<Store cross-reference data...@>=
   {
     if (++section_count==max_sections) overflow("section number");
@@ -719,9 +738,9 @@
     if (*(loc-1)=='*' && show_progress) {
       printf("*%d",section_count);
       update_terminal; /* print a progress report */
---- 1331,1336 ----
+--- 1389,1394 ----
 ***************
-*** 1012,1018 ****
+*** 1050,1056 ****
     @<Store cross-references in the \TEX/ part of a section@>;
     @<Store cross-references in the definition part of a section@>;
     @<Store cross-references in the \CEE/ part of a section@>;
@@ -729,10 +748,10 @@
   }
   
   @ The |C_xref| subroutine stores references to identifiers in
---- 1338,1343 ----
+--- 1396,1401 ----
 ***************
-*** 1100,1105 ****
---- 1425,1431 ----
+*** 1138,1143 ****
+--- 1483,1489 ----
       case trace: tracing=*(loc-1)-'0'; continue;
       case '|': C_xref(section_name); break;
       case xref_roman: case xref_wildcard: case xref_typewriter:
@@ -741,7 +760,7 @@
         loc-=2; next_control=get_next(); /* scan to \.{@@>} */
         if (next_control>=xref_roman && next_control<=xref_typewriter) {
 ***************
-*** 1326,1336 ****
+*** 1365,1375 ****
   @ In particular, the |finish_line| procedure is called near the very
   beginning of phase two. We initialize the output variables in a slightly
   tricky way so that the first line of the output file will be
@@ -753,7 +772,7 @@
   
   @ When we wish to append one character |c| to the output buffer, we write
   `|out(c)|'; this will cause the buffer to be emptied if it was already
---- 1652,1666 ----
+--- 1711,1725 ----
   @ In particular, the |finish_line| procedure is called near the very
   beginning of phase two. We initialize the output variables in a slightly
   tricky way so that the first line of the output file will be
@@ -770,7 +789,7 @@
   @ When we wish to append one character |c| to the output buffer, we write
   `|out(c)|'; this will cause the buffer to be emptied if it was already
 ***************
-*** 1340,1346 ****
+*** 1379,1385 ****
   A line break will occur at a space or after a single-nonletter
   \TEX/ control sequence.
   
@@ -778,7 +797,7 @@
   
   @c
   void
---- 1670,1684 ----
+--- 1729,1743 ----
   A line break will occur at a space or after a single-nonletter
   \TEX/ control sequence.
   
@@ -795,7 +814,7 @@
   @c
   void
 ***************
-*** 1396,1403 ****
+*** 1435,1442 ****
   
   @ Here is a macro that outputs a section number in decimal notation.
   The number to be converted by |out_section| is known to be less than
@@ -804,7 +823,7 @@
   
   @c
   void
---- 1734,1740 ----
+--- 1793,1799 ----
   
   @ Here is a macro that outputs a section number in decimal notation.
   The number to be converted by |out_section| is known to be less than
@@ -813,7 +832,7 @@
   @c
   void
 ***************
-*** 1406,1413 ****
+*** 1445,1452 ****
   {
     char s[6];
     sprintf(s,"%d",n); out_str(s);
@@ -822,10 +841,10 @@
   }
   
   @ The |out_name| procedure is used to output an identifier or index
---- 1743,1748 ----
+--- 1802,1807 ----
 ***************
-*** 1460,1465 ****
---- 1795,1801 ----
+*** 1502,1507 ****
+--- 1857,1863 ----
           case format_code: if (get_next()==identifier) get_next();
             if (loc>=limit) get_line(); /* avoid blank lines in output */
             break; /* the operands of \.{@@s} are ignored on this pass */
@@ -834,18 +853,18 @@
   @.Double @@ should be used...@>
           out('@@');
 ***************
-*** 1667,1672 ****
---- 2003,2009 ----
-  @d dead 39 /* scrap that won't combine */
-  @d begin_arg 58 /* \.{@@[} */
-  @d end_arg 59 /* \.{@@]} */
-+ @d title 60 /* program name or header name in a ``meaning'' */
+*** 1711,1716 ****
+--- 2067,2073 ----
+  @d new_exp 60 /* \&{new} and a following type identifier */
+  @d begin_arg 61 /* \.{@@[} */
+  @d end_arg 62 /* \.{@@]} */
++ @d title 63 /* program name or header name in a ``meaning'' */
   
   @<Glo...@>=
   char cat_name[256][12];
 ***************
-*** 2025,2030 ****
---- 2362,2368 ----
+*** 2101,2106 ****
+--- 2458,2464 ----
   
   @<Global...@>=
   scrap scrap_info[max_scraps]; /* memory array for scraps */
@@ -854,8 +873,8 @@
   scrap_pointer pp; /* current position for reducing productions */
   scrap_pointer scrap_base; /* beginning of the current scrap sequence */
 ***************
-*** 2034,2039 ****
---- 2372,2378 ----
+*** 2110,2115 ****
+--- 2468,2474 ----
   scrap_pointer max_scr_ptr; /* largest value assumed by |scrap_ptr| */
   
   @ @<Set init...@>=
@@ -864,7 +883,7 @@
   max_scr_ptr=scrap_ptr=scrap_info;
   
 ***************
-*** 2082,2089 ****
+*** 2158,2165 ****
         default: @<Print token |r| in symbolic form@>;
       }
     }
@@ -873,7 +892,7 @@
   
   @ @<Print token |r|...@>=
   switch (r) {
---- 2421,2432 ----
+--- 2517,2528 ----
         default: @<Print token |r| in symbolic form@>;
       }
     }
@@ -887,7 +906,7 @@
   @ @<Print token |r|...@>=
   switch (r) {
 ***************
-*** 2337,2351 ****
+*** 2444,2458 ****
   occurrence of the identifier that we're making reserved; hence
   the |for| loop below.
   
@@ -898,12 +917,12 @@
   {
     sixteen_bits tok_value; /* the name of this identifier, plus its flag*/
 !   token_pointer tok_loc; /* pointer to |tok_value| */
-!   if ((tok_loc=find_first_ident(p->trans))==no_ident_found)
+!   if ((tok_loc=find_first_ident(p->trans))<=operator_found)
 !     return; /* this should not happen */
     tok_value=*tok_loc;
     for (;p<=scrap_ptr; p==lo_ptr? p=hi_ptr: p++) {
       if (p->cat==exp) {
---- 2680,2696 ----
+--- 2807,2823 ----
   occurrence of the identifier that we're making reserved; hence
   the |for| loop below.
   
@@ -917,23 +936,23 @@
   scrap_pointer p;
   {
     sixteen_bits tok_value; /* the name of this identifier, plus its flag*/
-!   if (tok_loc==no_ident_found) return; /* this should not happen */
+!   if (tok_loc<=operator_found) return; /* this should not happen */
     tok_value=*tok_loc;
     for (;p<=scrap_ptr; p==lo_ptr? p=hi_ptr: p++) {
       if (p->cat==exp) {
 ***************
-*** 2374,2380 ****
+*** 2481,2487 ****
   /* underline the entry for the first identifier in |p->trans| */
   scrap_pointer p;
   {
 -   token_pointer tok_loc; /* where the first identifier appears */
-    if ((tok_loc=find_first_ident(p->trans))==no_ident_found)
-      return; /* this happens after parsing the |()| in |double f();| */
+    if ((tok_loc=find_first_ident(p->trans))<=operator_found)
+      return; /* this happens, for example, in |case found:| */
     xref_switch=def_flag;
---- 2719,2724 ----
+--- 2846,2851 ----
 ***************
-*** 2426,2431 ****
---- 2770,2891 ----
+*** 2533,2538 ****
+--- 2897,3018 ----
     while (r->xlink!=q) {r->num=r->xlink->num; r=r->xlink;}
     r->num=m; /* everything from |q| on is left undisturbed */
   
@@ -985,7 +1004,7 @@
 +   token t;
 +   int ast_count; /* asterisks preceding the expression */
 +   boolean non_ast_seen; /* have we seen a non-asterisk? */
-+   if (tok_loc==no_ident_found) return;
++   if (tok_loc<=operator_found) return;
 +   cn=((*tok_loc)%id_flag)+name_dir;
 +   @<Append the type of the declaree; |return| if it begins with \&{extern}@>;
 +   null_scrap.mathness=(((pp+l)->mathness)%4)*5; big_app1(&null_scrap);
@@ -1020,22 +1039,22 @@
 +   non_ast_seen=0;
 +   while (1) {
 +     if (*(q+1)==*q+1) {
-+       r=q;@+break; /* we're doing production 33 */
++       r=q;@+break; /* e.g. \&{struct}; we're doing production 45 or 46 */
 +     }
 +     if (**q<tok_flag) confusion("find type");
 +     r=**q-tok_flag+tok_start;
 +     if ((t=*(*(q+1)-2))>=tok_flag && **(t-tok_flag+tok_start)=='*') {
-+            /* production 23 */
++            /* production 34 */
 +       if (!non_ast_seen) ast_count++; /* count immediately preceding |*|'s */
 +     } else non_ast_seen=1;
-+     if (*(*q+1)==' ' && *(q+1)==*q+2) break; /* production 21 */
++     if (*(*q+1)==' ' && *(q+1)==*q+2) break; /* production 27 */
 +     if (*(*q+1)=='{' && *(*q+2)=='}' && *(*q+3)=='$' && *(*q+4)==' '@|
-+        && *(q+1)==*q+5) break; /* production 21 in disguise */
++        && *(q+1)==*q+5) break; /* production 27 in disguise */
 +     q=r;
 +   }
 +   while (**r>=tok_flag) {
 +     if (*(r+1)>*r+9 && *(*r+1)=='{' && *(*r+2)=='}' && *(*r+3)=='$' @|
-+         && *(*r+4)==indent) q=**r-tok_flag+tok_start; /* production 35 */
++         && *(*r+4)==indent) q=**r-tok_flag+tok_start; /* production 49 */
 +     r=**r-tok_flag+tok_start;
 +   }
 +   if (**r==ext_loc+res_flag) return; /* \&{extern} gives no definition */
@@ -1045,7 +1064,7 @@
 + @ @<Append tokens for type |q|@>=
 + cur_mathness=no_math; /* it was |maybe_math| */
 + if (*(q+1)==*q+8 && *(*q+1)==' ' && *(*q+3)==' ') {
-+   app(**q);@+app(' ');@+app(*(*q+2)); /* production 33 */
++   app(**q);@+app(' ');@+app(*(*q+2)); /* production 46 */
 + } else if ((t=*(*(q+1)-1))>=tok_flag && **(r=t-tok_flag+tok_start)=='\\'
 +    && *(*r+1)=='{') app(**q); /* |struct_like| identifier */
 + else app((q-tok_start)+tok_flag);
@@ -1057,7 +1076,7 @@
   with a particular type of scrap. Whenever a match is discovered,
   the |squash| or |reduce| macro will cause the appropriate action
 ***************
-*** 2433,2439 ****
+*** 2540,2546 ****
   
   @<Cases for |exp|@>=
   if (cat1==lbrace || cat1==int_like || cat1==decl) {
@@ -1065,7 +1084,7 @@
     reduce(pp,1,fn_decl,0,1);
   }
   else if (cat1==unop) squash(pp,2,exp,-2,2);
---- 2893,2901 ----
+--- 3020,3028 ----
   
   @<Cases for |exp|@>=
   if (cat1==lbrace || cat1==int_like || cat1==decl) {
@@ -1076,41 +1095,41 @@
   }
   else if (cat1==unop) squash(pp,2,exp,-2,2);
 ***************
-*** 2446,2452 ****
-  else if (cat1==exp || cat1==cast) squash(pp,2,exp,-2,5);
+*** 2554,2560 ****
+  else if (cat1==cast && cat2==colon) squash(pp+2,1,base,0,5);
   else if (cat1==semi) squash(pp,2,stmt,-1,6);
   else if (cat1==colon) {
-!   make_underlined (pp);  squash(pp,2,tag,0,7);
+!   make_underlined (pp);  squash(pp,2,tag,-1,7);
   }
-  else if (cat1==base) {
-    if (cat2==int_like && cat3==comma) {
---- 2908,2920 ----
-  else if (cat1==exp || cat1==cast) squash(pp,2,exp,-2,5);
+  else if (cat1==rbrace) squash(pp,1,stmt,-1,8);
+  else if (cat1==lpar && cat2==rpar && (cat3==const_like || cat3==case_like)) {
+--- 3036,3048 ----
+  else if (cat1==cast && cat2==colon) squash(pp+2,1,base,0,5);
   else if (cat1==semi) squash(pp,2,stmt,-1,6);
   else if (cat1==colon) {
 !   make_underlined (pp);
-!   if (tok_loc!=no_ident_found) {
+!   if (tok_loc>operator_found) {
 !     name_pointer cn=((*tok_loc)%id_flag)+name_dir;
 !     strcpy(ministring_buf,"label");
 !     new_meaning(cn);
 !   }
-!   squash(pp,2,tag,0,7);
+!   squash(pp,2,tag,-1,7);
   }
-  else if (cat1==base) {
-    if (cat2==int_like && cat3==comma) {
+  else if (cat1==rbrace) squash(pp,1,stmt,-1,8);
+  else if (cat1==lpar && cat2==rpar && (cat3==const_like || cat3==case_like)) {
 ***************
-*** 2545,2551 ****
+*** 2647,2653 ****
     reduce(pp,2,decl_head,-1,34);
   }
-  else if (cat1==exp && cat2!=lpar && cat2!=exp) {
+  else if (cat1==exp && cat2!=lpar && cat2!=exp && cat2!=cast) {
 !   make_underlined(pp+1); squash(pp,2,decl_head,-1,35);
   }
   else if ((cat1==binop||cat1==colon) && cat2==exp && (cat3==comma ||
       cat3==semi || cat3==rpar))
---- 3013,3021 ----
+--- 3135,3143 ----
     reduce(pp,2,decl_head,-1,34);
   }
-  else if (cat1==exp && cat2!=lpar && cat2!=exp) {
+  else if (cat1==exp && cat2!=lpar && cat2!=exp && cat2!=cast) {
 !   make_underlined(pp+1);
 !   make_ministring(1);
 !   squash(pp,2,decl_head,-1,35);
@@ -1118,18 +1137,8 @@
   else if ((cat1==binop||cat1==colon) && cat2==exp && (cat3==comma ||
       cat3==semi || cat3==rpar))
 ***************
-*** 2570,2575 ****
---- 3040,3046 ----
-  if (cat1==decl_head)
-    if ((cat2==exp&&cat3!=lpar&&cat3!=exp)||cat2==int_like) {
-      make_underlined(pp+2); make_reserved(pp+2);
-+     make_ministring(2);
-      big_app2(pp+1); reduce(pp+1,2,decl_head,0,42);
-    }
-    else if (cat2==semi) {
-***************
-*** 2583,2588 ****
---- 3054,3060 ----
+*** 2687,2692 ****
+--- 3177,3183 ----
   else if (cat1==exp||cat1==int_like) {
     if (cat2==lbrace || cat2==semi) {
       make_underlined(pp+1); make_reserved(pp+1);
@@ -1138,41 +1147,7 @@
       if (cat2==semi) reduce(pp,2,decl_head,0,45);
       else {
 ***************
-*** 2595,2605 ****
-    }
-  }
-  
-! @ @<Cases for |struct_head|@>=
-  if ((cat1==decl || cat1==stmt || cat1==function) && cat2==rbrace) {
-!   big_app1(pp); big_app(indent); big_app(force); big_app1(pp+1);
-!   big_app(outdent); big_app(force);  big_app1(pp+2);
-!   reduce(pp,3,int_like,-2,49);
-  }
-  else if (cat1==rbrace) {
-    big_app1(pp); app_str("\\,"); big_app1(pp+1);
---- 3067,3086 ----
-    }
-  }
-  
-! @ Here \.{CTWILL} seems to need a new production, to cover cases where
-! a format definition has made a structured type |int_like| already.
-! Otherwise cross-references to that type won't be generated.
-! 
-! @<Cases for |struct_head|@>=
-  if ((cat1==decl || cat1==stmt || cat1==function) && cat2==rbrace) {
-!   if (cat3==int_like && **((pp+3)->trans)/id_flag==2) {
-!     **((pp+3)->trans) -=id_flag; /* |find_first_ident| will find it */
-!     squash(pp+3,1,exp,0,149);
-!   } else {
-!     big_app1(pp); big_app(indent); big_app(force); big_app1(pp+1);
-!     big_app(outdent); big_app(force);  big_app1(pp+2);
-!     reduce(pp,3,int_like,-2,49);
-!   }
-  }
-  else if (cat1==rbrace) {
-    big_app1(pp); app_str("\\,"); big_app1(pp+1);
-***************
-*** 2735,2741 ****
+*** 2833,2839 ****
   big_app(' '); big_app1(pp); reduce(pp,1,stmt,-1,77);
   
   @ @<Cases for |lproc|@>=
@@ -1180,127 +1155,166 @@
   if (cat1==else_like || cat1==if_like ||cat1==define_like)
     squash(pp,2,lproc,0,78);
   else if (cat1==rproc) {
---- 3216,3227 ----
+--- 3324,3336 ----
   big_app(' '); big_app1(pp); reduce(pp,1,stmt,-1,77);
   
   @ @<Cases for |lproc|@>=
 ! if (cat1==define_like) { /* \.{\#define} is analogous to \&{extern} */
 !   make_underlined(pp+2);
-!   if (tok_loc!=no_ident_found) {
-!     struct perm_meaning *q=((*tok_loc)%id_flag)+cur_meaning;
+!   if (tok_loc>operator_found) {
+!     /* no time to work out this case; I'll handle defines by brute force
+!        in the \.{aux} file, since they usually don't go in mini-index */
 !   }
 ! }
   if (cat1==else_like || cat1==if_like ||cat1==define_like)
     squash(pp,2,lproc,0,78);
   else if (cat1==rproc) {
 ***************
-*** 2830,2838 ****
+*** 2914,2925 ****
+    squash(pp,1,exp,-2,99);
+  
+  @ @<Cases for |ftemplate|@>=
+! if (cat1==prelangle) squash(pp+1,1,langle,1,100);
+! else squash(pp,1,exp,-2,101);
+  
+  @ @<Cases for |for_like|@>=
+  if (cat1==exp) {
+!   big_app1(pp); big_app(' '); big_app1(pp+1); reduce(pp,2,else_like,-2,102);
   }
   
-  @ @<Cases for |raw_rpar|@>=
-! if (cat1==const_like && @|
-!     (cat2==semi || cat2==lbrace || cat2==comma || cat2==binop
-!       || cat2==const_like)) {
-    big_app1(pp); big_app(' ');
-    big_app1(pp+1); reduce(pp,2,raw_rpar,0,103);
-  } else squash(pp,1,rpar,-3,104);
---- 3316,3322 ----
+  @ @<Cases for |raw_ubin|@>=
+--- 3411,3422 ----
+    squash(pp,1,exp,-2,99);
+  
+  @ @<Cases for |ftemplate|@>=
+! if (cat1==prelangle) squash(pp+1,1,langle,1,121);
+! else squash(pp,1,exp,-2,122);
+  
+  @ @<Cases for |for_like|@>=
+  if (cat1==exp) {
+!   big_app1(pp); big_app(' '); big_app1(pp+1); reduce(pp,2,else_like,-2,123);
   }
   
-  @ @<Cases for |raw_rpar|@>=
-! if (cat1==const_like) {
-    big_app1(pp); big_app(' ');
-    big_app1(pp+1); reduce(pp,2,raw_rpar,0,103);
-  } else squash(pp,1,rpar,-3,104);
+  @ @<Cases for |raw_ubin|@>=
 ***************
-*** 3118,3123 ****
---- 3602,3608 ----
-    case '#': app_str("\\#"); app_scrap(unorbinop,yes_math);@+break;
+*** 2950,2973 ****
+  else if (cat1==comma) squash(pp,2,exp,-2,113);
+  else if (cat1!=raw_ubin) squash(pp,1,new_exp,0,114);
+  
+! @ @<Cases for |typedef_like|@>=
+! if ((cat1==int_like || cat1==cast) && (cat2==comma || cat2==semi))
+!   squash(pp+1,1,exp,-1,115);
+! else if (cat1==int_like) {
+!   big_app1(pp); big_app(' '); big_app1(pp+1); reduce(pp,2,typedef_like,0,116);
+! }
+! else if (cat1==exp && cat2!=lpar && cat2!=exp && cat2!=cast) {
+!   make_underlined(pp+1); make_reserved(pp+1);
+!   big_app1(pp); big_app(' '); big_app1(pp+1); reduce(pp,2,typedef_like,0,117);
+! }
+! else if (cat1==comma) {
+!   big_app2(pp); big_app(' '); reduce(pp,2,typedef_like,0,118);
+! }
+! else if (cat1==semi) squash(pp,2,decl,-1,119);
+! else if (cat1==ubinop && (cat2==ubinop || cat2==cast)) {
+!   big_app('{'); big_app1(pp+1); big_app('}'); big_app1(pp+2);
+!   reduce(pp+1,2,cat2,0,120);
+! }
+  
+  @ @<Cases for |delete_like|@>=
+  if (cat1==lpar && cat2==rpar) {
+--- 3447,3470 ----
+  else if (cat1==comma) squash(pp,2,exp,-2,113);
+  else if (cat1!=raw_ubin) squash(pp,1,new_exp,0,114);
+  
+! @ Here \.{CTWILL} deviates from the normal productions introduced in
+! version 3.6, because those productions bypass |decl_head| (thereby
+! confusing |make_ministring|, which depends on the |decl_head| productions
+! to deduce the type). We revert to an older syntax that was
+! less friendly to \CPLUSPLUS/ but good enough for me.
+! 
+! @<Cases for |typedef_like|@>=
+! if (cat1==decl_head) {
+!   if ((cat2==exp&&cat3!=lpar&&cat3!=exp)||cat2==int_like) {
+!     make_underlined(pp+2); make_reserved(pp+2);
+!     make_ministring(2);
+!     big_app2(pp+1); reduce(pp+1,2,decl_head,0,200);
+!   }
+!   else if (cat2==semi) {
+!     big_app1(pp); big_app(' '); big_app2(pp+1); reduce(pp,3,decl,-1,201);
+!   }
+! } else if (cat1==int_like && cat2==raw_int && 
+!     (cat3==semi || cat3==comma)) squash(pp+2,1,exp,1,202);
+  
+  @ @<Cases for |delete_like|@>=
+  if (cat1==lpar && cat2==rpar) {
+***************
+*** 2978,2984 ****
+  else if (cat1==exp) {
+    big_app1(pp); big_app(' '); big_app1(pp+1); reduce(pp,2,exp,-2,122);
+  }
+! 
+  @ @<Cases for |question|@>=
+  if (cat1==exp && (cat2==colon || cat2==base)) {
+    (pp+2)->mathness=5*yes_math; /* this colon should be in math mode */
+--- 3475,3481 ----
+  else if (cat1==exp) {
+    big_app1(pp); big_app(' '); big_app1(pp+1); reduce(pp,2,exp,-2,122);
+  }
+!   
+  @ @<Cases for |question|@>=
+  if (cat1==exp && (cat2==colon || cat2==base)) {
+    (pp+2)->mathness=5*yes_math; /* this colon should be in math mode */
+***************
+*** 3249,3254 ****
+--- 3746,3752 ----
+    case '#': app_str("\\#"); app_scrap(ubinop,yes_math);@+break;
   @.\\\#@>
     case ignore: case xref_roman: case xref_wildcard:
 +   case meaning: case suppress:
     case xref_typewriter: case noop:@+break;
     case '(': case '[': app(next_control); app_scrap(lpar,maybe_math);@+break;
-    case ')': case ']': app(next_control); app_scrap(raw_rpar,maybe_math);@+break;
+    case ')': case ']': app(next_control); app_scrap(rpar,maybe_math);@+break;
 ***************
-*** 3304,3309 ****
---- 3789,3795 ----
-      app(res_flag+(int)(p-name_dir));
-      if (scrapping) app_scrap(p->ilk,maybe_math);
+*** 3440,3445 ****
+--- 3938,3944 ----
+        else app_scrap(p->ilk,maybe_math);
+      }
     }
 +   @<Flag the usage of this identifier, for the mini-index@>;
   }
   
   @ When the `\.{\v}' that introduces \CEE/ text is sensed, a call on
 ***************
-*** 3355,3360 ****
---- 3841,3847 ----
+*** 3470,3477 ****
+  until |next_control>=format_code|. Thus, it takes care of embedded comments.
+  
+  The token list created from within `\pb' brackets is output as an argument
+! to \.{\\PB}, if the user has invoked \.{CWEAVE} with the \.{+e} flag.
+! Although \.{cwebmac} ignores \.{\\PB}, other macro packages
+  might use it to localize the special meaning of the macros that mark up
+  program text.
+  
+--- 3969,3976 ----
+  until |next_control>=format_code|. Thus, it takes care of embedded comments.
+  
+  The token list created from within `\pb' brackets is output as an argument
+! to \.{\\PB}, if the user has invoked \.{CTWILL} with the \.{+e} flag.
+! Although \.{ctwimac} ignores \.{\\PB}, other macro packages
+  might use it to localize the special meaning of the macros that mark up
+  program text.
+  
+***************
+*** 3499,3504 ****
+--- 3998,4004 ----
           p=text_ptr; freeze_text; q=C_translate();
            /* at this point we have |tok_ptr+6<=max_toks| */
           app(tok_flag+(int)(p-tok_start));
 +         app(inserted);
-          app_str("\\PB{"); app(inner_tok_flag+(int)(q-tok_start)); app_tok('}');
+          if (make_pb) app_str("\\PB{");
   @.\\PB@>
-          if (next_control=='|') {
+          app(inner_tok_flag+(int)(q-tok_start));
 ***************
-*** 3552,3563 ****
-    eight_bits a, /* current output byte */
-    b; /* next output byte */
-    int c; /* count of |indent| and |outdent| tokens */
-!   char scratch[longest_name]; /* scratch area for section names */
-!   char *k, *k_limit; /* indices into |scratch| */
-    char *j; /* index into |buffer| */
--   char *p; /* index into |byte_mem| */
-    char delim; /* first and last character of string being copied */
-    char *save_loc, *save_limit; /* |loc| and |limit| to be restored */
-    name_pointer cur_section_name; /* name of section being output */
-    boolean save_mode; /* value of |cur_mode| before a sequence of breaks */
-    app(end_translation); /* append a sentinel */
---- 4039,4049 ----
-    eight_bits a, /* current output byte */
-    b; /* next output byte */
-    int c; /* count of |indent| and |outdent| tokens */
-!   char *k, *k_limit; /* indices into |byte_mem| */
-    char *j; /* index into |buffer| */
-    char delim; /* first and last character of string being copied */
-    char *save_loc, *save_limit; /* |loc| and |limit| to be restored */
-+   char scratch[longest_name]; /* scratch area for section names */
-    name_pointer cur_section_name; /* name of section being output */
-    boolean save_mode; /* value of |cur_mode| before a sequence of breaks */
-    app(end_translation); /* append a sentinel */
-***************
-*** 3599,3612 ****
-  out('\\');
-  if (a==identifier) {
-    if (cur_name->ilk>=custom && cur_name->ilk<=quoted && !doing_format) {
-!     for (p=cur_name->byte_start;p<(cur_name+1)->byte_start;p++)
-!       out(isxalpha(*p)? 'x':*p);
-      break;
-    } else if (is_tiny(cur_name)) out('|')
-  @.\\|@>
-    else { delim='.';
-!     for (p=cur_name->byte_start;p<(cur_name+1)->byte_start;p++)
-!       if (xislower(*p)) { /* not entirely uppercase */
-           delim='\\'; break;
-        }
-    out(delim);
---- 4085,4098 ----
-  out('\\');
-  if (a==identifier) {
-    if (cur_name->ilk>=custom && cur_name->ilk<=quoted && !doing_format) {
-!     for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
-!       out(isxalpha(*j)? 'x':*j);
-      break;
-    } else if (is_tiny(cur_name)) out('|')
-  @.\\|@>
-    else { delim='.';
-!     for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
-!       if (xislower(*j)) { /* not entirely uppercase */
-           delim='\\'; break;
-        }
-    out(delim);
-***************
-*** 3810,3820 ****
+*** 3957,3967 ****
   phase_two() {
   reset_input(); if (show_progress) printf("\nWriting the output file...");
   @.Writing the output file...@>
@@ -1312,7 +1326,7 @@
   @ The output file will contain the control sequence \.{\\Y} between non-null
   sections of a section, e.g., between the \TEX/ and definition parts if both
   are nonempty. This puts a little white space between the parts when they are
---- 4296,4336 ----
+--- 4457,4497 ----
   phase_two() {
   reset_input(); if (show_progress) printf("\nWriting the output file...");
   @.Writing the output file...@>
@@ -1355,7 +1369,7 @@
   sections of a section, e.g., between the \TEX/ and definition parts if both
   are nonempty. This puts a little white space between the parts when they are
 ***************
-*** 3837,3845 ****
+*** 3984,3992 ****
   boolean format_visible; /* should the next format declaration be output? */
   boolean doing_format=0; /* are we outputting a format declaration? */
   boolean group_found=0; /* has a starred section occurred? */
@@ -1365,7 +1379,7 @@
     @<Output the code for the beginning of a new section@>;
     save_position;
     @<Translate the \TEX/ part of the current section@>;
---- 4353,4366 ----
+--- 4514,4527 ----
   boolean format_visible; /* should the next format declaration be output? */
   boolean doing_format=0; /* are we outputting a format declaration? */
   boolean group_found=0; /* has a starred section occurred? */
@@ -1381,7 +1395,7 @@
     save_position;
     @<Translate the \TEX/ part of the current section@>;
 ***************
-*** 3857,3865 ****
+*** 4004,4012 ****
   If the section has changed, we put \.{\\*} just after the section number.
   
   @<Output the code for the beginning...@>=
@@ -1391,7 +1405,7 @@
     while (*loc == ' ') loc++;
     if (*loc=='*') { /* ``top'' level */
       sec_depth = -1;
---- 4378,4391 ----
+--- 4539,4552 ----
   If the section has changed, we put \.{\\*} just after the section number.
   
   @<Output the code for the beginning...@>=
@@ -1407,8 +1421,8 @@
     if (*loc=='*') { /* ``top'' level */
       sec_depth = -1;
 ***************
-*** 3873,3883 ****
---- 4399,4414 ----
+*** 4020,4030 ****
+--- 4560,4575 ----
     group_found=1;
     out_str("\\N");
   @.\\N@>
@@ -1426,7 +1440,7 @@
   @ In the \TEX/ part of a section, we simply copy the source text, except that
   index entries are not copied and \CEE/ text within \pb\ is translated.
 ***************
-*** 3887,3895 ****
+*** 4034,4042 ****
     switch (next_control) {
       case '|': init_stack; output_C(); break;
       case '@@': out('@@'); break;
@@ -1436,7 +1450,7 @@
         if (next_control==TeX_string)
           err_print("! TeX string should be in C text only"); break;
   @.TeX string should be...@>
---- 4418,4429 ----
+--- 4579,4590 ----
     switch (next_control) {
       case '|': init_stack; output_C(); break;
       case '@@': out('@@'); break;
@@ -1450,7 +1464,7 @@
           err_print("! TeX string should be in C text only"); break;
   @.TeX string should be...@>
 ***************
-*** 3911,3920 ****
+*** 4058,4067 ****
     init_stack;
     if (next_control==definition) @<Start a macro definition@>@;
     else @<Start a format definition@>;
@@ -1461,7 +1475,7 @@
   @ The |finish_C| procedure outputs the translation of the current
   scraps, preceded by the control sequence `\.{\\B}' and followed by the
   control sequence `\.{\\par}'. It also restores the token and scrap
---- 4445,4461 ----
+--- 4606,4622 ----
     init_stack;
     if (next_control==definition) @<Start a macro definition@>@;
     else @<Start a format definition@>;
@@ -1480,8 +1494,8 @@
   scraps, preceded by the control sequence `\.{\\B}' and followed by the
   control sequence `\.{\\par}'. It also restores the token and scrap
 ***************
-*** 3964,3969 ****
---- 4505,4511 ----
+*** 4111,4116 ****
+--- 4666,4672 ----
   it starts after we scan the matching `\.)'.
   
   @<Start a macro...@>= {
@@ -1490,8 +1504,8 @@
     if(!space_checked){emit_space_if_needed;save_position;}
     app_str("\\D"); /* this will produce `\&{define }' */
 ***************
-*** 3972,3978 ****
---- 4514,4522 ----
+*** 4119,4125 ****
+--- 4675,4683 ----
       err_print("! Improper macro definition");
   @.Improper macro definition@>
     else {
@@ -1502,8 +1516,8 @@
     reswitch: switch (next_control=get_next()) {
         case '(': case ',': app(next_control); goto reswitch;
 ***************
-*** 3986,3993 ****
---- 4530,4555 ----
+*** 4133,4140 ****
+--- 4691,4716 ----
     }
   }
   
@@ -1531,7 +1545,7 @@
     if(!space_checked){emit_space_if_needed;save_position;}
     app_str("\\F"); /* this will produce `\&{format }' */
 ***************
-*** 4133,4147 ****
+*** 4280,4294 ****
   }
   
   @ @<Output the code for the end of a section@>=
@@ -1547,7 +1561,7 @@
   just finish off the page, omitting the index, section name list, and table of
   contents.
   
---- 4695,4797 ----
+--- 4856,4958 ----
   }
   
   @ @<Output the code for the end of a section@>=
@@ -1614,7 +1628,7 @@
 + 
 + @ @<Mini-output...@>=
 + switch (cur_name->ilk) {
-+   case normal: if (length(cur_name)==1) out_str("\\|");
++   case normal: case func_template: if (length(cur_name)==1) out_str("\\|");
 +     else {char *j;
 +       for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
 +         if (xislower(*j)) goto lowcase;
@@ -1630,16 +1644,16 @@
 + @.\\9@>
 +   case typewriter: out_str("\\."); break;
 + @.\\.@>
-+   case custom: case quoted: {char *j; out_str("$\\");
++   case custom: {char *j; out_str("$\\");
 +     for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
-+       out(isxalpha(*j)? 'x' : *j);
++       out(*j=='_'? 'x': *j=='$'? 'X': *j);
 +     out('$');
 +     goto name_done;
 +     }
 +   default: out_str("\\&");
 + @.\\\&@>
 + }
-+ out_name(cur_name);
++ out_name(cur_name,1);
 + name_done:
 + 
 + 
@@ -1652,7 +1666,7 @@
   contents.
   
 ***************
-*** 4164,4172 ****
+*** 4311,4319 ****
     if ((idx_file=fopen(idx_file_name,"w"))==NULL)
       fatal("! Cannot open index file ",idx_file_name);
   @.Cannot open index file@>
@@ -1662,9 +1676,9 @@
     out_str("\\inx"); finish_line();
   @.\\inx@>
     active_file=idx_file; /* change active file to the index file */
---- 4814,4819 ----
+--- 4975,4980 ----
 ***************
-*** 4194,4218 ****
+*** 4341,4365 ****
   }
   
   @ Just before the index comes a list of all the changed sections, including
@@ -1690,7 +1704,7 @@
   @ A left-to-right radix sorting method is used, since this makes it easy to
   adjust the collating sequence and since the running time will be at worst
   proportional to the total length of all entries in the index. We put the
---- 4841,4851 ----
+--- 5002,5012 ----
   }
   
   @ Just before the index comes a list of all the changed sections, including
@@ -1703,15 +1717,17 @@
   adjust the collating sequence and since the running time will be at worst
   proportional to the total length of all entries in the index. We put the
 ***************
-*** 4383,4389 ****
+*** 4530,4538 ****
     --sort_ptr;
   }
   
 ! @ @<Output the name...@>=
   switch (cur_name->ilk) {
-    case normal: if (is_tiny(cur_name)) out_str("\\|");
+!   case normal: case func_template: if (is_tiny(cur_name)) out_str("\\|");
       else {char *j;
---- 5016,5025 ----
+        for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
+          if (xislower(*j)) goto lowcase;
+--- 5177,5188 ----
     --sort_ptr;
   }
   
@@ -1720,57 +1736,62 @@
 ! 
 ! @<Output the name...@>=
   switch (cur_name->ilk) {
-    case normal: if (is_tiny(cur_name)) out_str("\\|");
+!   case normal: if (is_tiny(cur_name)) out_str("\\|");
       else {char *j;
+        for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
+          if (xislower(*j)) goto lowcase;
 ***************
-*** 4396,4417 ****
+*** 4543,4563 ****
   @.\\|@>
   @.\\.@>
   @.\\\\@>
-!   case roman: break;
-    case wildcard: out_str("\\9"); break;
+!   case wildcard: out_str("\\9");@+ goto not_an_identifier;
   @.\\9@>
-    case typewriter: out_str("\\."); break;
+    case typewriter: out_str("\\.");
   @.\\.@>
-!   case custom: case quoted: {char *j; out_str("$\\");
+!   case roman: not_an_identifier: out_name(cur_name,0); goto name_done;
+!   case custom: {char *j; out_str("$\\");
 !     for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
-!       out(isxalpha(*j)? 'x' : *j);
+!       out(*j=='_'? 'x': *j=='$'? 'X': *j);
 !     out('$');
 !     goto name_done;
 !     }
     default: out_str("\\&");
   @.\\\&@>
   }
-! out_name(cur_name);
-! name_done:
+! out_name(cur_name,1);
+  name_done:
   
   @ Section numbers that are to be underlined are enclosed in
-  `\.{\\[}$\,\ldots\,$\.]'.
---- 5032,5052 ----
+--- 5193,5217 ----
   @.\\|@>
   @.\\.@>
   @.\\\\@>
-!   case roman: out_str("  "); break;
-    case wildcard: out_str("\\9"); break;
+!   case roman: out_str("  "); goto not_an_identifier;
+!   case wildcard: out_str("\\9"); goto not_an_identifier;
   @.\\9@>
-    case typewriter: out_str("\\."); break;
+    case typewriter: out_str("\\.");
   @.\\.@>
-!   case custom: case quoted: out_str("\\$"); break;
+! not_an_identifier: out_name(cur_name,0); goto name_done;
+!   case custom: out_str("\\$"); break;
 ! @.\\\$@>
     default: out_str("\\&");
   @.\\\&@>
   }
-! out('{');
-! {char *j;
-!   for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++) out(*j);
+! if (flags['P']) out_name(cur_name,1);
+! else {
+!   out('{');
+!   {char *j;
+!     for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++) out(*j);
+!   }
+!   out('}');
 ! }
-! out('}');
+  name_done:
   
   @ Section numbers that are to be underlined are enclosed in
-  `\.{\\[}$\,\ldots\,$\.]'.
 ***************
-*** 4481,4486 ****
---- 5116,5126 ----
+*** 4628,4633 ****
+--- 5282,5292 ----
               (long)(xref_ptr-xmem),(long)max_refs);
     printf("%ld bytes (out of %ld)\n",
               (long)(byte_ptr-byte_mem),(long)max_bytes);

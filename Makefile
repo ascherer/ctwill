@@ -2,7 +2,7 @@
 CFLAGS = -g
 CWEBINPUTS = /usr/local/lib/cweb
 
-ALL = Makefile ctwill.w common.w common.h prod.w ctwill.diffs \
+ALL = Makefile ctwill.w common.w common.h prod.w ctwill.diffs prod.diffs \
       proofmac.tex ctwimac.tex refsort.w twinx.w twinxmac.tex
 
 .SUFFIXES: .dvi .tex .w .ref .sref
@@ -54,5 +54,5 @@ floppy: $(ALL)
 	eject
 
 tarfile: $(ALL)
-	tar cvhf ctwill.tar $(ALL)
-	gzip -9 ctwill.tar
+	tar cvhf /tmp/ctwill.tar $(ALL)
+	gzip -9 /tmp/ctwill.tar

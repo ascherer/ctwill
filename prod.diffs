@@ -1,0 +1,58 @@
+*** ../cweb/prod.w	Fri May  5 08:08:32 2000
+--- prod.w	Fri May  5 08:14:41 2000
+***************
+*** 239,257 ****
+      $O$\.\ \alt $N$ $S$ & |operator delete|\cr
+  \+& |operator_like| |comma| & |exp| & \&{operator},\cr
+  \+\dagit& |operator_like| & |new_exp| & |operator char*|\cr
+! \advance\midcol-8pt
+! \+& |typedef_like| \alt|int_like| |cast| \alt|comma| |semi| &
+!     |typedef_like| |exp| \alt|comma| |semi| & \&{typedef} \&{int} \&I,\cr
+! \advance\midcol+8pt
+! \+& |typedef_like| |int_like| & |typedef_like| \hfil $T\.\ I$ &
+!     \&{typedef} \&{char}\cr
+! \+\dagit& |typedef_like| |exp| & |typedef_like| \hfill $T\.\ E^{**}$ &
+!     \&{typedef} \&I \.{@@[@@]} (|*|\&P)\cr
+! \+& |typedef_like| |comma| & |typedef_like| \hfill $TC\.\ $ &
+!     \&{typedef} \&{int} \&x,\cr
+! \+& |typedef_like| |semi| & |decl| & \&{typedef} \&{int} $\&x,\&y$;\cr
+! \+& |typedef_like| |unorbinop| |cast| & |typedef_like| |cast| \hfill
+!     $C=\.\{U\.\}C$ & \&{typedef} |*|(\&{CPtr})\cr
+  \+& |ftemplate| |prelangle| & |ftemplate| |langle| & |make_pair<int,int>|\cr
+  \+& |ftemplate| & |exp| & |make_pair(1,2)|\cr
+  \+& |for_like| |exp| & |else_like| \hfill $F\.\ E$ & |while (1)|\cr
+--- 239,254 ----
+      $O$\.\ \alt $N$ $S$ & |operator delete|\cr
+  \+& |operator_like| |comma| & |exp| & \&{operator},\cr
+  \+\dagit& |operator_like| & |new_exp| & |operator char*|\cr
+! \advance\midcol-3pt
+! \+\dag200\enspace& |typedef_like| |decl_head| \alt|exp| |int_like| &
+!       |typedef_like| |decl_head| \hfill $D=D$\alt $E^{**}$ $I^{**}$ \unskip &
+!           \&{typedef} \&{char} \&{ch};\cr
+! \advance\midcol+3pt
+! \+201\enspace& |typedef_like| |decl_head| |semi| & |decl| \hfill $T\.\ D$ &
+!                                              \&{typedef} \&{int} $\&x,\&y$;\cr
+! \+\dag202\enspace& |typedef_like| |int_like| |raw_int| & |typedef_like| |int_like| |exp| &
+!   \&{typedef} \&{int} \&{foo}\cr
+! \global\prodno=121
+  \+& |ftemplate| |prelangle| & |ftemplate| |langle| & |make_pair<int,int>|\cr
+  \+& |ftemplate| & |exp| & |make_pair(1,2)|\cr
+  \+& |for_like| |exp| & |else_like| \hfill $F\.\ E$ & |while (1)|\cr
+***************
+*** 294,300 ****
+  Rule 114: The |operator_like| must not be immediately followed by
+  |raw_unorbin|.
+  
+! Rule 117: The |exp| must not be immediately followed by |lpar|, |exp|,
+! or |cast|.
+  
+  \endgroup
+--- 291,298 ----
+  Rule 114: The |operator_like| must not be immediately followed by
+  |raw_unorbin|.
+  
+! Rule 200: The |exp| must not be immediately followed by |lpar| or~|exp|.
+! 
+! Rule 202: The |raw_int| must be immediately followed by |semi| or |comma|.
+  
+  \endgroup
