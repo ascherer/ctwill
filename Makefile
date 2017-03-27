@@ -2,7 +2,8 @@
 CFLAGS = -g
 CWEBINPUTS = /usr/local/lib/cweb
 
-ALL = Makefile ctwill.w common.w common.h prod.w ctwill.diffs prod.diffs \
+ALL = Makefile cweave.w common.w common.h prod.w \
+      ctwill.w cweav-twill.ch prod-twill.w prod-twill.ch \
       proofmac.tex ctwimac.tex refsort.w twinx.w twinxmac.tex
 
 .SUFFIXES: .dvi .tex .w .ref .sref
@@ -10,7 +11,7 @@ ALL = Makefile ctwill.w common.w common.h prod.w ctwill.diffs prod.diffs \
 .w.tex:
 	cweave $*.w
 
-.tex.dvi:	
+.tex.dvi:
 	tex $*.tex
 
 .w.dvi:
@@ -27,16 +28,27 @@ ALL = Makefile ctwill.w common.w common.h prod.w ctwill.diffs prod.diffs \
 .ref.sref:
 	refsort < $*.ref > $*.sref
 
+all: ctwill refsort twinx
+
+# Stuff from original CWEB
+cweave.w common.w common.h prod.w:
+	cp ../cweb/$@ .
+
+ctwill.w: cweave.w cweav-twill.ch
+	tie -m $@ $^
+
+cweav-twill.ch: prod-twill.w
+
+prod-twill.w: prod.w prod-twill.ch
+	wmerge $^ $@
+
 ctwill: ctwill.o common.o
 	cc $(CFLAGS) -o ctwill ctwill.o common.o
 
-ctwill.c: prod.w common.h
+ctwill.c: prod-twill.w common.h
 
 common.o: common.c
 	$(CC) $(CFLAGS) -DCWEBINPUTS=\"$(CWEBINPUTS)\" -c common.c
-
-prod.w:
-	cp ../cweb/prod.w .
 
 refsort: refsort.o
 	cc $(CFLAGS) -o refsort refsort.o
@@ -47,6 +59,9 @@ twinx: twinx.o
 clean:
 	rm -f -r *~ *.o ctwill.tex \
 	  *.log *.dvi *.toc *.idx *.scn core ctwill refsort twinx
+
+veryclean: clean
+	rm -f *.c common.w common.h prod.w prod-twill.w cweave.w ctwill.w
 
 floppy: $(ALL)
 	bar cvf /dev/rfd0 $(ALL)
