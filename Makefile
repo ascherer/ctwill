@@ -40,7 +40,7 @@ ctwill.w: cweave.w cweav-twill.ch
 cweav-twill.ch: prod-twill.w
 
 prod-twill.w: prod.w prod-twill.ch
-	wmerge $^ $@
+	tie -m $@ $^
 
 ctwill: ctwill.o common.o
 	cc $(CFLAGS) -o ctwill ctwill.o common.o
