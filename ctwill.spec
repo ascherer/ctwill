@@ -11,6 +11,9 @@ Distribution: Kubuntu 16.04 (x86_64)
 Source0: ftp://ftp.cs.stanford.edu/pub/cweb/cweb-%{version}.tar.gz
 Source1: ftp://ftp.cs.stanford.edu/pub/ctwill/%{name}-%{version}.tar.gz
 
+Patch1: 0001-Make-clean-twinx.patch
+Patch2: 0002-Make-clean-refsort.patch
+
 %define texmf /opt/texlive/texmf-local
 
 %description

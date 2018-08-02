@@ -1,0 +1,47 @@
+From b4ea99c6c1bb96b42c13f249564354ea3d3d4884 Mon Sep 17 00:00:00 2001
+From: debbuild <debbuild>
+Date: Thu, 2 Aug 2018 19:58:22 +0200
+Subject: [PATCH 2/2] Make clean refsort.
+
+---
+ refsort.w | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/refsort.w b/refsort.w
+index e18d134..8f5bc76 100644
+--- a/refsort.w
++++ b/refsort.w
+@@ -40,9 +40,9 @@ be plenty big enough.
+ 
+ @d abort(c,m) { fprintf(stderr,"%s!\n%s",m,buf); return c; }
+ @c
+-#include "stdio.h"
+-#include "strings.h"
+-#include "ctype.h"
++#include <stdio.h>
++#include <string.h>
++#include <ctype.h>
+ @#
+ typedef struct {
+   char key[max_key];
+@@ -54,7 +54,7 @@ char cur_page[10]; /* page number, as a string */
+ char buf[max_size]; /* current line of input */
+ char *input_status; /* |NULL| if end of input reached, else |buf| */
+ @#
+-main()
++int main()
+ {
+   register char *p,*q;
+   register int n; /* current number of items */
+@@ -86,7 +86,7 @@ while (1) {
+ }
+ 
+ @ @<Output the current group@>=
+-{ register int k;
++{
+   for (y=sorted;y<sorted+n;y++) printf("%s\n",(*y)->entry);
+   printf("\\donewithpage%s\n",cur_page);
+ }
+-- 
+2.18.0
+
