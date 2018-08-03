@@ -1,7 +1,7 @@
-From 68ab325d3fcb76fe7f4163783e90aec93ed9d2b8 Mon Sep 17 00:00:00 2001
+From de7849446e7ee5bb19acc683055cf77e5f51e58a Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
-Date: Fri, 3 Aug 2018 11:55:33 +0200
-Subject: [PATCH 7/7] Improve cleanup.
+Date: Fri, 3 Aug 2018 13:55:33 +0200
+Subject: [PATCH 7/8] Improve cleanup.
 
 ---
  Makefile | 7 ++++---

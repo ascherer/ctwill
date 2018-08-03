@@ -1,0 +1,28 @@
+From 1e5474017e7a71abd54d5103f5e8c675c9936714 Mon Sep 17 00:00:00 2001
+From: debbuild <debbuild>
+Date: Fri, 3 Aug 2018 13:59:49 +0200
+Subject: [PATCH 8/8] Missing page break.
+
+Somehow, ctwill doesn't work properly on itself. In the 'users manual',
+of all places, there's an extreeemely long page that deserves special
+treatment.
+---
+ cweav-twill.ch | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/cweav-twill.ch b/cweav-twill.ch
+index 494f51b..3c95a22 100644
+--- a/cweav-twill.ch
++++ b/cweav-twill.ch
+@@ -211,6 +211,8 @@ can also be replaced by a string. For example,
+ $$\.{@@\$printf "<stdio.h>" \\zip@@>}$$
+ will generate a mini-index entry like `\\{printf}, \.{<stdio.h>}.'.
+ 
++\vfill\eject
++
+ A special ``proofmode'' is provided so that you can check \.{CTWILL}'s
+ conclusions about cross-references. Run \.{CTWILL} with the
+ flag \.{+P}, and \TeX\ will produce a specially formatted document
+-- 
+2.18.0
+
