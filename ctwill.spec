@@ -18,6 +18,7 @@ Patch4: 0004-Fix-compiler-warnings-in-common.w.patch
 Patch5: 0005-Clean-compile-of-ctwill.patch
 Patch6: 0006-Put-refsort-s-index-in-a-separate-section.patch
 Patch7: 0007-Improve-cleanup.patch
+Patch8: 0008-Missing-page-break.patch
 
 %define texmf /opt/texlive/texmf-local
 

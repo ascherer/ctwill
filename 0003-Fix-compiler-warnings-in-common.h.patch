@@ -1,7 +1,7 @@
-From 1ccdf418492b7d7627917e47c08c7b42f3bb5e19 Mon Sep 17 00:00:00 2001
+From b1db23a11d8bc2a6ead606835f820f0c2f1c30b8 Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
-Date: Fri, 3 Aug 2018 11:32:30 +0200
-Subject: [PATCH 3/7] Fix compiler warnings in common.h.
+Date: Fri, 3 Aug 2018 13:55:33 +0200
+Subject: [PATCH 3/8] Fix compiler warnings in common.h.
 
 ---
  common.h | 20 ++++++++++----------

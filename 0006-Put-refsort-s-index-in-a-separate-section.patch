@@ -1,7 +1,7 @@
-From d1982adfaa968acecace50003e2340dfc56fc4e0 Mon Sep 17 00:00:00 2001
+From 9ab60a974e6a04e8be07bac92a2f67010d3a468e Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
-Date: Fri, 3 Aug 2018 11:47:31 +0200
-Subject: [PATCH 6/7] Put refsort's 'index' in a separate section.
+Date: Fri, 3 Aug 2018 13:55:33 +0200
+Subject: [PATCH 6/8] Put refsort's 'index' in a separate section.
 
 ---
  refsort.w | 1 +
