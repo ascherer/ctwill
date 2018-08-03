@@ -1,7 +1,7 @@
-From 5756871f6057fe9354a7fc91610f5bd6dc0b4d8e Mon Sep 17 00:00:00 2001
+From 3f29b20b44c813254ca4ac34162c27804d8e31d8 Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
-Date: Fri, 3 Aug 2018 08:17:29 +0200
-Subject: [PATCH 1/5] Make clean twinx.
+Date: Fri, 3 Aug 2018 11:32:30 +0200
+Subject: [PATCH 1/7] Make clean twinx.
 
 ---
  twinx.w | 9 ++++++---

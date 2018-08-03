@@ -1,7 +1,7 @@
-From 26cc41a85274813a97d5a8f3f0633875b787f4bb Mon Sep 17 00:00:00 2001
+From 0142a854e8ad930cd104a511f822b5c305d4be49 Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
-Date: Fri, 3 Aug 2018 08:34:39 +0200
-Subject: [PATCH 5/5] Clean compile of ctwill.
+Date: Fri, 3 Aug 2018 11:32:30 +0200
+Subject: [PATCH 5/7] Clean compile of ctwill.
 
 ---
  cweav-twill.ch | 27 ++++++++++++++++++++++-----

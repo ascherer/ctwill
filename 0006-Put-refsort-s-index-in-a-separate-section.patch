@@ -1,0 +1,21 @@
+From d1982adfaa968acecace50003e2340dfc56fc4e0 Mon Sep 17 00:00:00 2001
+From: debbuild <debbuild>
+Date: Fri, 3 Aug 2018 11:47:31 +0200
+Subject: [PATCH 6/7] Put refsort's 'index' in a separate section.
+
+---
+ refsort.w | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/refsort.w b/refsort.w
+index 8f5bc76..162f696 100644
+--- a/refsort.w
++++ b/refsort.w
+@@ -162,3 +162,4 @@ characters. Ergo, the following routine replaced a simpler original loop.
+   for (;*p;p++) *q++=*p;
+ }
+ 
++@* Index.
+-- 
+2.18.0
+

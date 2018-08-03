@@ -1,0 +1,32 @@
+From 68ab325d3fcb76fe7f4163783e90aec93ed9d2b8 Mon Sep 17 00:00:00 2001
+From: debbuild <debbuild>
+Date: Fri, 3 Aug 2018 11:55:33 +0200
+Subject: [PATCH 7/7] Improve cleanup.
+
+---
+ Makefile | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 150f6cb..d650561 100644
+--- a/Makefile
++++ b/Makefile
+@@ -57,11 +57,12 @@ twinx: twinx.o
+ 	cc $(CFLAGS) -o twinx twinx.o
+ 
+ clean:
+-	rm -f -r *~ *.o ctwill.tex \
+-	  *.log *.dvi *.toc *.idx *.scn core ctwill refsort twinx
++	rm -f -r *~ *.o ctwill.tex refsort.tex twinx.tex \
++	  *.log *.dvi *.toc *.idx *.scn core ctwill refsort twinx \
++	  ctwill.c refsort.c twinx.c prod-twill.w ctwill.w
+ 
+ veryclean: clean
+-	rm -f *.c common.w common.h prod.w prod-twill.w cweave.w ctwill.w
++	rm -f *.c common.w common.h prod.w cweave.w
+ 
+ floppy: $(ALL)
+ 	bar cvf /dev/rfd0 $(ALL)
+-- 
+2.18.0
+
