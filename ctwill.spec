@@ -13,6 +13,9 @@ Source1: ftp://ftp.cs.stanford.edu/pub/ctwill/%{name}-%{version}.tar.gz
 
 Patch1: 0001-Make-clean-twinx.patch
 Patch2: 0002-Make-clean-refsort.patch
+Patch3: 0003-Fix-compiler-warnings-in-common.h.patch
+Patch4: 0004-Fix-compiler-warnings-in-common.w.patch
+Patch5: 0005-Clean-compile-of-ctwill.patch
 
 %define texmf /opt/texlive/texmf-local
 
