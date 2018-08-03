@@ -1,0 +1,74 @@
+From 26cc41a85274813a97d5a8f3f0633875b787f4bb Mon Sep 17 00:00:00 2001
+From: debbuild <debbuild>
+Date: Fri, 3 Aug 2018 08:34:39 +0200
+Subject: [PATCH 5/5] Clean compile of ctwill.
+
+---
+ cweav-twill.ch | 27 ++++++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
+
+diff --git a/cweav-twill.ch b/cweav-twill.ch
+index ca241cb..494f51b 100644
+--- a/cweav-twill.ch
++++ b/cweav-twill.ch
+@@ -68,9 +68,20 @@ modified. The version number parallels the corresponding version of \.{CWEAVE}.
+ @z
+ 
+ @x
++@ We predeclare several standard system functions here instead of including
++their system header files, because the names of the header files are not as
++standard as the names of the functions. (For example, some \CEE/ environments
++have \.{<string.h>} where others have \.{<strings.h>}.)
++
++@<Predecl...@>=
++extern int strlen(); /* length of string */
++extern int strcmp(); /* compare strings lexicographically */
++extern char* strcpy(); /* copy one string to another */
++extern int strncmp(); /* compare up to $n$ string characters */
+ extern char* strncpy(); /* copy up to $n$ string characters */
+ @y
+-extern char* strncpy(); /* copy up to $n$ string characters */
++@ @<Include files@>=
++#include <string.h>
+ 
+ @ Here is a sort of user manual for \.{CTWILL}---which is exactly like
+ \.{CWEAVE} except that it produces much better documentation, for which you
+@@ -351,8 +362,8 @@ new_meaning(p)
+ @ @<Write the new meaning to the \.{.aux} file@>=
+ {@+int n=q->perm.prog_no;
+   fprintf(aux_file,"@@$%.*s %.*s",@|
+-     (p+1)->byte_start-p->byte_start,p->byte_start,@|
+-      (title_code[n]+1)->byte_start-title_code[n]->byte_start,
++     (int)((p+1)->byte_start-p->byte_start),p->byte_start,@|
++      (int)((title_code[n]+1)->byte_start-title_code[n]->byte_start),
+          title_code[n]->byte_start);
+   if (*(title_code[n]->byte_start)=='{') fprintf(aux_file,"%d",q->perm.sec_no);
+   fprintf(aux_file," %s@@>\n",q->perm.tex_part);
+@@ -650,6 +661,12 @@ the section is changed, we output `\.{\\*}' just after the number.
+ @d title 63 /* program name or header name in a ``meaning'' */
+ @z
+ 
++@x
++  printf(cat_name[c]);
++@y
++  printf("%s",cat_name[c]);
++@z
++
+ @x
+ @i prod.w
+ @y
+@@ -1214,9 +1231,9 @@ out_mini(m)
+     sprintf(s,"\\[%d",m->sec_no);
+   } else { name_pointer n=title_code[m->prog_no];
+     if (*(n->byte_start)=='{')
+-      sprintf(s,"\\]%.*s%d",(n+1)->byte_start-n->byte_start,n->byte_start,
++      sprintf(s,"\\]%.*s%d",(int)((n+1)->byte_start-n->byte_start),n->byte_start,
+              m->sec_no);
+-    else sprintf(s,"\\]%.*s",(n+1)->byte_start-n->byte_start,n->byte_start);
++    else sprintf(s,"\\]%.*s",(int)((n+1)->byte_start-n->byte_start),n->byte_start);
+   }
+   out_str(s); out(' ');
+   @<Mini-output the name at |cur_name|@>;
+-- 
+2.18.0
+

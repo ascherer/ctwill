@@ -1,7 +1,7 @@
-From b4ea99c6c1bb96b42c13f249564354ea3d3d4884 Mon Sep 17 00:00:00 2001
+From 8762e9cbedffdd8fa83ae457faca09dfe75f153f Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
-Date: Thu, 2 Aug 2018 19:58:22 +0200
-Subject: [PATCH 2/2] Make clean refsort.
+Date: Fri, 3 Aug 2018 08:17:29 +0200
+Subject: [PATCH 2/5] Make clean refsort.
 
 ---
  refsort.w | 10 +++++-----
