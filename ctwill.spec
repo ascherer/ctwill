@@ -29,7 +29,7 @@ Create mini-indexes for literate programs.
 %autosetup -c -a1
 
 %build
-make
+%{__make}
 
 %install
 %{__rm} -rf %{buildroot}
