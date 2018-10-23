@@ -33,8 +33,11 @@ Create mini-indexes for literate programs.
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} ctwill refsort twinx -D -t %{buildroot}%{_bindir}
-%{__install} ctwimac.tex proofmac.tex twinxmac.tex -m 644 -D -t %{buildroot}%{texmf}/tex/plain/cweb
+%{__install} -d %{buildroot}%{_bindir} \
+	%{buildroot}%{texmf}/tex/plain/cweb
+%{__install} ctwill refsort twinx %{buildroot}%{_bindir}
+%{__install} -m 644 ctwimac.tex proofmac.tex twinxmac.tex \
+	%{buildroot}%{texmf}/tex/plain/cweb
 
 %files
 %defattr(-,root,root,-)
