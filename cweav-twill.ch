@@ -1044,12 +1044,7 @@ if (*(loc-1)!='*') {
 @.\\shortpage@>
   }
   out_str("\\M");
-@z
-
-@x
-else {
-@y
-} else {
+}
 @z
 
 @x
