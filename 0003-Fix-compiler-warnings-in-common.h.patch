@@ -1,7 +1,7 @@
-From b1db23a11d8bc2a6ead606835f820f0c2f1c30b8 Mon Sep 17 00:00:00 2001
+From f320fe76137294166ad3cfe605d72169c4e02798 Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
 Date: Fri, 3 Aug 2018 13:55:33 +0200
-Subject: [PATCH 3/8] Fix compiler warnings in common.h.
+Subject: [PATCH 3/7] Fix compiler warnings in common.h.
 
 ---
  common.h | 20 ++++++++++----------
@@ -56,5 +56,5 @@ index d6c0bfb..f830a5b 100644
  @ Code related to section numbers:
  @<Common code...@>=
 -- 
-2.18.0
+2.20.1
 

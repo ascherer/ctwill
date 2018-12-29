@@ -1,7 +1,7 @@
-From de7849446e7ee5bb19acc683055cf77e5f51e58a Mon Sep 17 00:00:00 2001
+From 5cbbcb7fba5949a3fed6acce0e6dcbdae2225508 Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
 Date: Fri, 3 Aug 2018 13:55:33 +0200
-Subject: [PATCH 7/8] Improve cleanup.
+Subject: [PATCH 6/7] Improve cleanup.
 
 ---
  Makefile | 7 ++++---
@@ -28,5 +28,5 @@ index 150f6cb..d650561 100644
  floppy: $(ALL)
  	bar cvf /dev/rfd0 $(ALL)
 -- 
-2.18.0
+2.20.1
 

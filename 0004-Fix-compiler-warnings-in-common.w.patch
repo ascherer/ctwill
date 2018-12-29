@@ -1,7 +1,7 @@
-From 10d55c81530f4b9f59b539749302071fbda2feef Mon Sep 17 00:00:00 2001
+From 0780d014335bcafd9c230a5445943affbfb7048b Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
 Date: Fri, 3 Aug 2018 13:55:33 +0200
-Subject: [PATCH 4/8] Fix compiler warnings in common.w.
+Subject: [PATCH 4/7] Fix compiler warnings in common.w.
 
 ---
  common.w | 15 +++------------
@@ -40,5 +40,5 @@ index d8aacfb..efdf891 100644
  
  @** Index.
 -- 
-2.18.0
+2.20.1
 

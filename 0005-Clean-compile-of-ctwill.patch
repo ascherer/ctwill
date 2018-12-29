@@ -1,14 +1,14 @@
-From c2bbf6db21cf7d7845ce40a257322d92ed69b17c Mon Sep 17 00:00:00 2001
+From ec7ec4a7c78eddb067fe40964315b39384565637 Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
 Date: Fri, 3 Aug 2018 13:55:33 +0200
-Subject: [PATCH 5/8] Clean compile of ctwill.
+Subject: [PATCH 5/7] Clean compile of ctwill.
 
 ---
  cweav-twill.ch | 27 ++++++++++++++++++++++-----
  1 file changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/cweav-twill.ch b/cweav-twill.ch
-index ca241cb..494f51b 100644
+index 0ce51e3..a6145d8 100644
 --- a/cweav-twill.ch
 +++ b/cweav-twill.ch
 @@ -68,9 +68,20 @@ modified. The version number parallels the corresponding version of \.{CWEAVE}.
@@ -57,7 +57,7 @@ index ca241cb..494f51b 100644
  @x
  @i prod.w
  @y
-@@ -1214,9 +1231,9 @@ out_mini(m)
+@@ -1209,9 +1226,9 @@ out_mini(m)
      sprintf(s,"\\[%d",m->sec_no);
    } else { name_pointer n=title_code[m->prog_no];
      if (*(n->byte_start)=='{')
@@ -70,5 +70,5 @@ index ca241cb..494f51b 100644
    out_str(s); out(' ');
    @<Mini-output the name at |cur_name|@>;
 -- 
-2.18.0
+2.20.1
 

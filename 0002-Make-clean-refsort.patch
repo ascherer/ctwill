@@ -1,14 +1,15 @@
-From 168087691bcd56e09a17c4e643caefb29f1b609f Mon Sep 17 00:00:00 2001
+From 0bb67440f3e7d3c6d9a39b2e35b1c4cf4136970c Mon Sep 17 00:00:00 2001
 From: debbuild <debbuild>
 Date: Fri, 3 Aug 2018 13:55:33 +0200
-Subject: [PATCH 2/8] Make clean refsort.
+Subject: [PATCH 2/7] Make clean refsort.
 
+Put refsort's 'index' in a separate section.
 ---
- refsort.w | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ refsort.w | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/refsort.w b/refsort.w
-index e18d134..8f5bc76 100644
+index e18d134..162f696 100644
 --- a/refsort.w
 +++ b/refsort.w
 @@ -40,9 +40,9 @@ be plenty big enough.
@@ -42,6 +43,11 @@ index e18d134..8f5bc76 100644
    for (y=sorted;y<sorted+n;y++) printf("%s\n",(*y)->entry);
    printf("\\donewithpage%s\n",cur_page);
  }
+@@ -162,3 +162,4 @@ characters. Ergo, the following routine replaced a simpler original loop.
+   for (;*p;p++) *q++=*p;
+ }
+ 
++@* Index.
 -- 
-2.18.0
+2.20.1
 
