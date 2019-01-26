@@ -20,3 +20,11 @@ process completely. the archival `diffs` files are mogrified into genuine
 changefiles applicable to the original `cweave`, `common`,  and `prod` modules
 from `cweb`. it also applies some spit and polish to the sources in order to
 enable a clean compilation with gcc.
+
+# news flash 2019
+
+this project has come to an end. `ctwill` and its utilities has been fully integrated in the
+[cwebbin](https://github.com/ascherer/cwebbin)
+project and is now also part of the
+[tex live](https://github.com/TeX-Live/texlive-source)
+distribution.
