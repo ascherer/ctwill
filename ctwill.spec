@@ -6,7 +6,7 @@ URL: ftp://ftp.cs.stanford.edu/pub/ctwill
 Version: 3.64c
 Release: 1
 Packager: Andreas Scherer <https://ascherer.github.io>
-Distribution: Kubuntu 16.04 (x86_64)
+Distribution: Kubuntu 18.04 (x86_64)
 
 Source0: ftp://ftp.cs.stanford.edu/pub/cweb/cweb-%{version}.tar.gz
 Source1: ftp://ftp.cs.stanford.edu/pub/ctwill/%{name}-%{version}.tar.gz
